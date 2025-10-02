@@ -6,21 +6,36 @@ class ApiService {
   Future<dynamic> get({required String uri}) async {
     var url = Uri.parse(uri);
     http.Response response = await http.get(url);
-    if (response.statusCode == 200) {
+ 
       var data = jsonDecode(response.body);
       return data;
-    } else {
-      throw Exception('Failed to load data');
-    }
+ 
+   
   }
-  Future<dynamic> add({required String uri,required dynamic body}) async {
+
+  Future<dynamic> add({required String uri, required dynamic body}) async {
     var url = Uri.parse(uri);
-    http.Response response= await http.post(url,
-    body: jsonEncode(body),
-    headers: {"Content-Type": "application/json"}
+    http.Response response = await http.post(
+      url,
+      body: jsonEncode(body),
+      headers: {"Content-Type": "application/json"},
     );
     var result = jsonDecode(response.body);
     return result;
-    
+  }
+
+  Future<dynamic> update({
+    required String uri,
+    required dynamic body
+  }) async {
+    var url = Uri.parse(uri);
+    http.Response response = await http.put(
+      url,
+      body: jsonEncode(body),
+      headers: { 'Content-Type': 'application/json' },
+    );
+    var result = jsonDecode(response.body);
+    return result ;
+
   }
 }

@@ -40,16 +40,20 @@ class CustomTaskCard extends StatelessWidget {
                 ),
               ),
             ),
-           
+
             PopupMenuButton(
-
               onSelected: (value) {
-                switch (value){
+                switch (value) {
                   case 'Edit':
-                    Navigator.push((context), MaterialPageRoute(builder: (context)=>EditTaskView(taskTitle: task.title,)));
+                    Navigator.push(
+                      (context),
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            EditTaskView(task: task),
+                      ),
+                    );
                   case 'Delete':
-
-                  default :
+                  default:
                 }
               },
               itemBuilder: (context) {

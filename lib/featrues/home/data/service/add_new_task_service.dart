@@ -13,7 +13,7 @@ class AddNewTaskService {
       'userId': 1,
     },
   ) as Map<String,dynamic>;
-  TaskModel task = TaskModel.fromJson(data );
+  TaskModel task = TaskModel.fromJson(data);
   return Right(task);
 }  catch (e) {
       return Left(ServerFailure(e.toString()));
