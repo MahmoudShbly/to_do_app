@@ -38,4 +38,11 @@ class ApiService {
     return result ;
 
   }
+
+  Future<dynamic> delete({required String uri}) async {
+    var url = Uri.parse(uri);
+    http.Response response = await http.delete(url);
+    var result = jsonDecode(response.body);
+    return result;
+  }
 }

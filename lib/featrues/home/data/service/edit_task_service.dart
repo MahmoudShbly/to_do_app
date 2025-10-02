@@ -7,7 +7,7 @@ class EditTaskService {
   Future<Either<Failures, TaskModel>> editTask({
     required int id,
     required String title,
-    bool taskState = false,
+    bool? taskState,
   }) async {
     try {
       var data =
