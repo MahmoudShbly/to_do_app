@@ -49,7 +49,7 @@ class AddTaskView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text('Add Task', style: TextStyle(fontSize: 16)),
-                  CustomTextField(
+                  CustomTextFormField(
                     hintText: 'Task title',
                     controller: titleController,
                     validator: (value) {
