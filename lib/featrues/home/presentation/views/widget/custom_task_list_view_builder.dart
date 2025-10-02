@@ -17,10 +17,8 @@ class CustomTaskListViewBuilder extends StatelessWidget {
         );
         } else if (state is FetchAllTasksCubitLoading) {
           return Center(child: CircularProgressIndicator());
-        } else if (state is FetchAllTasksCubitFailure) {
-          return Center(child: Text('Error: ${state.errorMassage}'));
-        } else {
-          return Center(child: Text('No Tasks Available'));
+        }  else {
+          return Center(child: CircularProgressIndicator());
         }
       },
     );

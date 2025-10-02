@@ -5,10 +5,7 @@ sealed class AddNewTaskState {}
 
 final class AddNewTaskInitial extends AddNewTaskState {}
 final class AddNewTaskLoading extends AddNewTaskState {}
-final class AddNewTaskSuccess extends AddNewTaskState {
-  final TaskModel newTask;
-  AddNewTaskSuccess({required this.newTask});
-}
+final class AddNewTaskSuccess extends AddNewTaskState {}
 final class AddNewTaskFailure extends AddNewTaskState {
   final String errorMassage;
   AddNewTaskFailure({required this.errorMassage});

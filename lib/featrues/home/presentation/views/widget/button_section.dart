@@ -19,15 +19,16 @@ class ButtonSection extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
+          
         ),
         Spacer(),
         CustomButton(
           buttonName: ' Add ',
           backgroundColor: Colors.black,
           frontgroundColor: Colors.white,
-          onPressed: () { 
+          onPressed: () async{ 
             if(formKey!.currentState!.validate()){
-              onPressed!();
+             await onPressed!();
             }
             
           },

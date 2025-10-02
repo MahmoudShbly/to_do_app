@@ -8,7 +8,6 @@ part 'fetch_all_tasks_state.dart';
 
 class FetchAllTasksCubit extends Cubit<FetchAllTasksState> {
   FetchAllTasksCubit() : super(FetchAllTasksCubitInitial());
-  List<TaskModel> tasks = [];
   Future<void> fetchData() async {
     emit(FetchAllTasksCubitLoading());
     var result = await GetAllTasksService().getAllTasks();
@@ -16,15 +15,10 @@ class FetchAllTasksCubit extends Cubit<FetchAllTasksState> {
       (failure) => emit(FetchAllTasksCubitFailure(errorMassage: failure)),
       (data) {
         emit(FetchAllTasksCubitSuccess(tasks: data));
-        for (var item in data) {
-          tasks.add(item);
-        }
+        
       },
     );
   }
 
-  void addNewTask(TaskModel T) {
-    tasks.add(T);
-    emit(FetchAllTasksCubitSuccess(tasks: tasks));
-  }
+  
 }

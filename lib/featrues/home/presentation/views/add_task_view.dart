@@ -11,62 +11,70 @@ class AddTaskView extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddNewTaskCubit, AddNewTaskState>(
-      listener: (context, state) {
-        if (state is AddNewTaskSuccess) {
+    return BlocConsumer<AddNewTaskCubit, AddNewTaskState>(
+      listener: (context, state) async {
+        if (state is AddNewTaskSuccess)  {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Task added successfully', style: TextStyle(color: Colors.white)),
+              content: Text(
+                'Task added successfully',
+                style: TextStyle(color: Colors.white),
+              ),
               backgroundColor: Colors.green,
             ),
           );
-          BlocProvider.of<FetchAllTasksCubit>(context).fetchData();
+          await BlocProvider.of<FetchAllTasksCubit>(context).fetchData();
+          titleController.clear();
           Navigator.of(context).pop();
         }
         if (state is AddNewTaskFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Error: ${state.errorMassage}', style: TextStyle(color: Colors.white)),
+              content: Text(
+                'Error: ${state.errorMassage}',
+                style: TextStyle(color: Colors.white),
+              ),
               backgroundColor: Colors.red,
             ),
           );
         }
       },
-      child: Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(22.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              spacing: 16,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text('Add Task', style: TextStyle(fontSize: 16)),
-                CustomTextField(
-                  hintText: 'Task title',
-                  controller: titleController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'title must not be empty';
-                    }
-                    return null;
-                  },
-                ),
-
-                ButtonSection(
-                  formKey: formKey,
-                  onPressed: () {
-                     context.read<AddNewTaskCubit>().addNewTask(title: titleController.text).then((_){
-                      titleController.clear();
-                 
-                     });
-                  },
-                ),
-              ],
+      builder: (context, state) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text('Add Task', style: TextStyle(fontSize: 16)),
+                  CustomTextField(
+                    hintText: 'Task title',
+                    controller: titleController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'title must not be empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  state is AddNewTaskLoading
+                      ? const CircularProgressIndicator()
+                      : ButtonSection(
+                          formKey: formKey,
+                          onPressed: () async {
+                            await context.read<AddNewTaskCubit>().addNewTask(
+                              title: titleController.text,
+                            );
+                          },
+                        ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
