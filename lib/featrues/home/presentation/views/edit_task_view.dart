@@ -4,6 +4,7 @@ import 'package:todo_app_with_api/core/utlis/helper_function.dart';
 import 'package:todo_app_with_api/core/widget/custom_text_field.dart';
 import 'package:todo_app_with_api/featrues/home/data/models/task_model.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/manager/edit_task_cubit/edit_task_cubit.dart';
+import 'package:todo_app_with_api/featrues/home/presentation/manager/fetch_all_tasks_cubit/fetch_all_tasks_cubit.dart';
 
 class EditTaskView extends StatelessWidget {
   const EditTaskView({super.key, required this.task});
@@ -17,22 +18,15 @@ class EditTaskView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Edit Task', style: TextStyle(fontSize: 24))),
       body: BlocConsumer<EditTaskCubit, EditTaskState>(
-        listener: (context, state) {
+        listener: (context, state)async {
           if (state is EditTaskSuccess) {
             showSnackBar(context, 'Task Updated Successfully', Colors.green);
             controller.clear();
             Navigator.pop(context);
+            await context.read<FetchAllTasksCubit>().fetchData();
           }
           if (state is EditTaskFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  state.errorMassage,
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.red,
-              ),
-            );
+            showSnackBar(context, state.errorMassage, Colors.red);
           }
           
         },

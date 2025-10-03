@@ -51,7 +51,7 @@ class _CustomTabBarState extends State<CustomTabBar>
               Container(
                 width: double.infinity,
                 child: Text(
-                  'Archived',
+                  'Done',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18),
                 ),
@@ -69,7 +69,11 @@ class _CustomTabBarState extends State<CustomTabBar>
                 alignment: Alignment.topCenter,
                 child: CustomTaskListViewBuilder(),
               ),
-              Center(child: Text('Archived')),
+              Align(
+                alignment: Alignment.topCenter,
+                child: CustomTaskListViewBuilder(isDone: true),
+              ),
+              
             ],
           ),
         ),
