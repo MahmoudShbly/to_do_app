@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_with_api/core/utlis/helper_function.dart';
 import 'package:todo_app_with_api/core/widget/custom_text_field.dart';
 import 'package:todo_app_with_api/featrues/home/data/models/task_model.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/manager/edit_task_cubit/edit_task_cubit.dart';
@@ -18,15 +19,7 @@ class EditTaskView extends StatelessWidget {
       body: BlocConsumer<EditTaskCubit, EditTaskState>(
         listener: (context, state) {
           if (state is EditTaskSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Task Updated Successfully',
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.green,
-              ),
-            );
+            showSnackBar(context, 'Task Updated Successfully', Colors.green);
             controller.clear();
             Navigator.pop(context);
           }

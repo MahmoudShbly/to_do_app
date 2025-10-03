@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_with_api/core/utlis/bloc_observer.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/manager/add_new_task_cubit/add_new_task_cubit.dart';
+import 'package:todo_app_with_api/featrues/home/presentation/manager/delete_task_cubit/delete_task_cubit.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/manager/edit_task_cubit/edit_task_cubit.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/manager/fetch_all_tasks_cubit/fetch_all_tasks_cubit.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/views/home_view.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         
         BlocProvider(
           create: (context) => FetchAllTasksCubit()..fetchData(),
+        ),
+        BlocProvider(
+          create: (context) => DeleteTaskCubit(),
         ),
         BlocProvider(
           create: (context) => EditTaskCubit(),

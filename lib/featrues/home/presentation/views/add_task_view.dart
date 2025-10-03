@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_with_api/core/utlis/helper_function.dart';
 import 'package:todo_app_with_api/core/widget/custom_text_field.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/manager/add_new_task_cubit/add_new_task_cubit.dart';
 import 'package:todo_app_with_api/featrues/home/presentation/manager/fetch_all_tasks_cubit/fetch_all_tasks_cubit.dart';
@@ -14,29 +15,13 @@ class AddTaskView extends StatelessWidget {
     return BlocConsumer<AddNewTaskCubit, AddNewTaskState>(
       listener: (context, state) async {
         if (state is AddNewTaskSuccess)  {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Task added successfully',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.green,
-            ),
-          );
-          await BlocProvider.of<FetchAllTasksCubit>(context).fetchData();
+          showSnackBar(context, 'Task Added Successfully', Colors.green);
           titleController.clear();
           Navigator.of(context).pop();
+          await BlocProvider.of<FetchAllTasksCubit>(context).fetchData();
         }
         if (state is AddNewTaskFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Error: ${state.errorMassage}',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Colors.red,
-            ),
-          );
+          showSnackBar(context, state.errorMassage, Colors.red);
         }
       },
       builder: (context, state) {
