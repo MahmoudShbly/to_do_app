@@ -13,7 +13,6 @@ class _CustomTabBarState extends State<CustomTabBar>
   late TabController _controller;
   @override
   void initState() {
-    // TODO: implement initState
     _controller = TabController(length: 2, vsync: this);
     super.initState();
   }
