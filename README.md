@@ -1,4 +1,4 @@
-# 📝 Todo App with API
+# 📝 Todo App with Fake API
 
 A modern, feature-rich Todo application built with Flutter that demonstrates clean architecture principles, state management with BLoC, and RESTful API integration. This app provides a seamless task management experience with real-time updates and an intuitive user interface.
 
