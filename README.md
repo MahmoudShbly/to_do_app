@@ -137,8 +137,8 @@ todo_app_with_api/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/MahmoudShbly/todo_app_with_api.git
-   cd todo_app_with_api
+   git clone https://github.com/MahmoudShbly/to_do_app.git
+   cd to_do_app
    ```
 
 2. **Install dependencies**
